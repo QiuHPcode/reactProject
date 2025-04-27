@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+      .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+      }
+      .news {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+
+    <!-- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+
+    <script
+      type="text/javascript"
+      src="../js/react.development.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../js/babel.min.js"
+    ></script>
+
+    <script type="text/babel">
+      class News extends React.Component {
+        state = { newArr: [] };
+        getSnapshotBeforeUpdate() {
+          return this.refs.list.scrollHeight;
+        }
+        componentDidMount() {
+          setInterval(() => {
+            const { newArr } = this.state;
+            const news = "新闻" + (newArr.length + 1);
+            this.setState({ newArr: [news, ...newArr] });
+          }, 3000);
+        }
+        componentDidUpdate(preProps, preState, height) {
+          console.log("懂了");
+
+          this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+        }
+        render() {
+          return (
+            <div
+              className="list"
+              ref="list"
+            >
+              {this.state.newArr.map((n, index) => {
+                return (
+                  <div
+                    className="news"
+                    key={index}
+                  >
+                    {n}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<News />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

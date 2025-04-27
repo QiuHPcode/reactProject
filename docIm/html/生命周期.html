@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <div>
+      挂载mount <br />
+      卸载unmount
+    </div>
+
+    <!-- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+
+    <script
+      type="text/javascript"
+      src="../js/react.development.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../js/babel.min.js"
+    ></script>
+
+    <script type="text/babel">
+      class Life extends React.Component {
+        state = { opacity: 0.5 };
+        timer = null;
+        death = () => {
+          // 卸载组件
+          ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+        };
+
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            console.log(123);
+
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) opacity = 1;
+            this.setState({ opacity });
+          }, 200);
+        }
+        componentWillUnmount() {
+          if (this.timer) {
+            clearInterval(this.timer);
+          }
+        }
+        render() {
+          return (
+            <div>
+              <h2 style={{ opacity: this.state.opacity }}>学不完</h2>
+              <button onClick={this.death}>不活了</button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Life />, document.getElementById("test"));
+    </script>
+  </body>
+</html>
