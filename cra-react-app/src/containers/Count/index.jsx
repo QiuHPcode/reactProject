@@ -14,13 +14,13 @@ import {
 // mapStateToProps函数的返回值对象
 // 对象的Key作为状态传递给了UI组件props的key,value就作为传递给ui组件props的value
 // 用于传递状态
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { count: state };
-}
+};
 // mapDispatchToProps函数的返回值对象
 // 对象的Key作为状态传递给了UI组件props的key,value就作为传递给ui组件props的value
 // 用于传递操作状态的方法
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     jia: (number) => {
       // 通知redux执行方法
@@ -33,8 +33,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(createIncrementAsyncAction(number, time));
     },
   };
-}
+};
 
-const CountContainer = connect(mapStateToProps, mapDispatchToProps)(CountUI);
+// mapDispatchToProps精简版写法 自动dispatch调用分发
+const Dispatch = {
+  jia: createIncrementAction,
+  jian: createDecrementAction,
+  jiaAsync: createIncrementAsyncAction,
+};
+
+const CountContainer = connect(mapStateToProps, Dispatch)(CountUI);
+
 // 暴露容器组件
 export default CountContainer;
