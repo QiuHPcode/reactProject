@@ -29,7 +29,7 @@ function App() {
       <h3>
         react-redux早期容器套UI
       </h3>
-      <CountContainer store={store} />
+      <CountContainer/>
     </div>
   );
 }
