@@ -5,6 +5,9 @@ import Start from './components/Start';
 import Bye from './components/Bye';
 import CountContainer from './containers/Count';
 import store from './redux/store';
+import { NavLink, Routes, Route, Navigate } from 'react-router-dom'
+import About from './pages/About';
+import Home from './pages/Home';
 function App() {
   return (
     <div >
@@ -29,7 +32,24 @@ function App() {
       <h3>
         react-redux早期容器套UI
       </h3>
-      <CountContainer/>
+      <CountContainer />
+
+      <div>
+        路由
+        <div>
+          <NavLink to="/about">About</NavLink><br />
+          <NavLink to="/home">Home</NavLink>
+
+        </div>
+        <div>
+          <Routes>
+            <Route path='/about' element={<About />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/' element={<Navigate to="/about" />} />
+
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }
